@@ -14,7 +14,7 @@ interface ManageWorkProps {
 
 export default function ManageWork({ onClose, currentManifest }: ManageWorkProps) {
   // Scan for all images in the public/images folder
-  const imageModules = import.meta.glob('/public/images/*.webp', { eager: true });
+  const imageModules = import.meta.glob('../../public/images/*.webp', { eager: true });
   const allImageFiles = Object.keys(imageModules).map(path => path.split('/').pop() || '');
 
   const [items, setItems] = useState<WorkItem[]>([]);
