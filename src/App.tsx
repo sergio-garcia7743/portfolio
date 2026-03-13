@@ -326,24 +326,17 @@ const imageModules = import.meta.glob('/public/images/*.webp', { eager: true });
 const detectedImageFiles = Object.keys(imageModules)
   .map(path => path.split('/').pop() || '')
   .sort((a, b) => {
-    const numA = parseInt(a.split('.')[0]) || 0;
-    const numB = parseInt(b.split('.')[0]) || 0;
-    return numA - numB;
+    // Extract the number from the start of the filename (e.g., "1" from "1.e.webp")
+    const numA = Number(a.split('.')[0]);
+    const numB = Number(b.split('.')[0]);
+    
+    // If both are valid numbers, sort numerically
+    if (!isNaN(numA) && !isNaN(numB)) {
+      return numA - numB;
+    }
+    // Fallback to alphabetical if numbers are missing
+    return a.localeCompare(b);
   });
-
-// Mock images for demonstration if no real images are found
-const MOCK_IMAGES = Array.from({ length: 60 }, (_, i) => {
-  const id = i + 1;
-  let category = 'Engineering';
-  if (id > 20 && id <= 40) category = 'Creative';
-  if (id > 40) category = 'Management';
-  
-  return {
-    id: `mock-${id}`,
-    category,
-    image: `https://picsum.photos/seed/work-${id}/600/800`
-  };
-});
 
 function MyWorkSection({ onImageClick }: { onImageClick: (src: string) => void }) {
   const [filter, setFilter] = useState('All');
@@ -351,7 +344,7 @@ function MyWorkSection({ onImageClick }: { onImageClick: (src: string) => void }
   
   const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
 
-  const realPhotos = detectedImageFiles.map(filename => {
+  const photos = detectedImageFiles.map(filename => {
     const parts = filename.split('.');
     const code = parts[1]; // Get the 'e', 'c', or 'm'
     
@@ -365,9 +358,6 @@ function MyWorkSection({ onImageClick }: { onImageClick: (src: string) => void }
       image: `./images/${filename}`
     };
   });
-
-  // Use real photos if available, otherwise use mock photos
-  const photos = realPhotos.length > 0 ? realPhotos : MOCK_IMAGES;
 
   const filteredPhotos = (filter === 'All' ? photos : photos.filter(p => p.category === filter))
     .filter(p => !failedImages.has(p.id));
