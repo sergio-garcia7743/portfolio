@@ -331,13 +331,27 @@ const detectedImageFiles = Object.keys(imageModules)
     return numA - numB;
   });
 
+// Mock images for demonstration if no real images are found
+const MOCK_IMAGES = Array.from({ length: 60 }, (_, i) => {
+  const id = i + 1;
+  let category = 'Engineering';
+  if (id > 20 && id <= 40) category = 'Creative';
+  if (id > 40) category = 'Management';
+  
+  return {
+    id: `mock-${id}`,
+    category,
+    image: `https://picsum.photos/seed/work-${id}/600/800`
+  };
+});
+
 function MyWorkSection({ onImageClick }: { onImageClick: (src: string) => void }) {
   const [filter, setFilter] = useState('All');
   const filters = ['All', 'Engineering', 'Creative', 'Management'];
   
   const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
 
-  const photos = detectedImageFiles.map(filename => {
+  const realPhotos = detectedImageFiles.map(filename => {
     const parts = filename.split('.');
     const code = parts[1]; // Get the 'e', 'c', or 'm'
     
@@ -351,6 +365,9 @@ function MyWorkSection({ onImageClick }: { onImageClick: (src: string) => void }
       image: `./images/${filename}`
     };
   });
+
+  // Use real photos if available, otherwise use mock photos
+  const photos = realPhotos.length > 0 ? realPhotos : MOCK_IMAGES;
 
   const filteredPhotos = (filter === 'All' ? photos : photos.filter(p => p.category === filter))
     .filter(p => !failedImages.has(p.id));
