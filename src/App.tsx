@@ -330,6 +330,8 @@ function MyWorkSection({ onImageClick }: { onImageClick: (src: string) => void }
     '16.m.webp', '17.m.webp', '18.m.webp', '19.m.webp', '20.m.webp'
   ];
 
+  const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
+
   const photos = imageFiles.map(filename => {
     const parts = filename.split('.');
     const code = parts[1]; // Get the 'e', 'c', or 'm'
@@ -339,12 +341,14 @@ function MyWorkSection({ onImageClick }: { onImageClick: (src: string) => void }
     if (code === 'm') category = 'Management';
     
     return {
+      id: filename,
       category,
       image: `/images/${filename}`
     };
   });
 
-  const filteredPhotos = filter === 'All' ? photos : photos.filter(p => p.category === filter);
+  const filteredPhotos = (filter === 'All' ? photos : photos.filter(p => p.category === filter))
+    .filter(p => !failedImages.has(p.id));
 
   return (
     <section>
@@ -373,9 +377,9 @@ function MyWorkSection({ onImageClick }: { onImageClick: (src: string) => void }
       </div>
 
       <div className="grid grid-cols-3 gap-1 md:gap-2">
-        {filteredPhotos.map((photo, i) => (
+        {filteredPhotos.map((photo) => (
           <motion.div 
-            key={i}
+            key={photo.id}
             layout
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -388,6 +392,13 @@ function MyWorkSection({ onImageClick }: { onImageClick: (src: string) => void }
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               referrerPolicy="no-referrer"
               loading="lazy"
+              onError={() => {
+                setFailedImages(prev => {
+                  const next = new Set(prev);
+                  next.add(photo.id);
+                  return next;
+                });
+              }}
             />
             <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity" />
           </motion.div>
