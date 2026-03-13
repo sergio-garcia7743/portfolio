@@ -19,10 +19,10 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
-const TABS = ['Portfolio', 'Resume', 'About'];
+const TABS = ['My Work', 'Resume', 'About'];
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('Portfolio');
+  const [activeTab, setActiveTab] = useState('My Work');
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 md:p-8 lg:p-12">
@@ -111,7 +111,7 @@ export default function App() {
               >
                 {activeTab === 'About' && <AboutSection />}
                 {activeTab === 'Resume' && <ResumeSection />}
-                {activeTab === 'Portfolio' && <PortfolioSection />}
+                {activeTab === 'My Work' && <MyWorkSection />}
               </motion.div>
             </AnimatePresence>
           </div>
@@ -305,35 +305,44 @@ function ResumeSection() {
   );
 }
 
-function PortfolioSection() {
+function MyWorkSection() {
   const [filter, setFilter] = useState('All');
-  const filters = ['All', 'Robotics', 'Analysis', 'Mechanics'];
+  const filters = ['All', 'Engineering', 'Creative', 'Events'];
   
   const projects = [
     { 
       title: '5-DOF Pick-and-Place System', 
-      category: 'Robotics', 
-      image: 'https://picsum.photos/seed/robot/400/250',
-      description: 'Automated system with 1kg payload for glovebox manufacturing operations.'
+      category: 'Engineering', 
+      image: 'https://picsum.photos/seed/robot/600/800',
+      pdf: '/pdfs/5-dof-system.pdf'
     },
     { 
       title: 'House of Blanks Analysis', 
-      category: 'Analysis', 
-      image: 'https://picsum.photos/seed/factory/400/250',
-      description: 'Production analysis and bottleneck identification for high-volume apparel.'
+      category: 'Engineering', 
+      image: 'https://picsum.photos/seed/factory/600/800',
+      pdf: '/pdfs/house-of-blanks.pdf'
     },
     { 
       title: 'Mobile STEM Innovation Unit', 
-      category: 'Robotics', 
-      image: 'https://picsum.photos/seed/stem/400/250',
-      description: 'Mobile outreach trailer concept for interactive engineering activities.'
+      category: 'Engineering', 
+      image: 'https://picsum.photos/seed/stem/600/800',
+      pdf: '/pdfs/stem-unit.pdf'
     },
     { 
       title: 'Automotive Systems Mechanics', 
-      category: 'Mechanics', 
-      image: 'https://picsum.photos/seed/car/400/250',
-      description: 'Servicing radiator, cooling, and electrical faults using OBD-II tools.'
+      category: 'Engineering', 
+      image: 'https://picsum.photos/seed/car/600/800',
+      pdf: '/pdfs/automotive.pdf'
     },
+    { title: 'Project 1', category: 'Engineering', image: 'https://picsum.photos/seed/p1/600/800', pdf: '/pdfs/project1.pdf' },
+    { title: 'Project 2', category: 'Engineering', image: 'https://picsum.photos/seed/p2/600/800', pdf: '/pdfs/project2.pdf' },
+    { title: 'Project 3', category: 'Engineering', image: 'https://picsum.photos/seed/p3/600/800', pdf: '/pdfs/project3.pdf' },
+    { title: 'Project 4', category: 'Engineering', image: 'https://picsum.photos/seed/p4/600/800', pdf: '/pdfs/project4.pdf' },
+    { title: 'Project 5', category: 'Engineering', image: 'https://picsum.photos/seed/p5/600/800', pdf: '/pdfs/project5.pdf' },
+    { title: 'Creative Shot 1', category: 'Creative', image: 'https://picsum.photos/seed/c1/600/800', pdf: '#' },
+    { title: 'Creative Shot 2', category: 'Creative', image: 'https://picsum.photos/seed/c2/600/800', pdf: '#' },
+    { title: 'Event Highlight 1', category: 'Events', image: 'https://picsum.photos/seed/e1/600/800', pdf: '#' },
+    { title: 'Event Highlight 2', category: 'Events', image: 'https://picsum.photos/seed/e2/600/800', pdf: '#' },
   ];
 
   const filteredProjects = filter === 'All' ? projects : projects.filter(p => p.category === filter);
@@ -341,7 +350,7 @@ function PortfolioSection() {
   return (
     <section>
       <header className="mb-8">
-        <h2 className="text-3xl font-bold text-white mb-4">Engineering Projects</h2>
+        <h2 className="text-3xl font-bold text-white mb-4">My Work</h2>
         <div className="w-10 h-1.5 bg-[#a3e635] rounded-full"></div>
       </header>
 
@@ -357,28 +366,26 @@ function PortfolioSection() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-3 gap-1 md:gap-2">
         {filteredProjects.map((project, i) => (
           <motion.div 
-            key={project.title}
+            key={`${project.title}-${i}`}
             layout
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="group cursor-pointer"
+            className="group cursor-pointer relative aspect-[3/4] bg-[#2b2b2c] overflow-hidden"
+            onClick={() => project.pdf !== '#' && window.open(project.pdf, '_blank')}
           >
-            <div className="relative aspect-[4/3] bg-[#2b2b2c] rounded-2xl overflow-hidden mb-4">
-              <img 
-                src={project.image} 
-                alt={project.title} 
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-6 text-center">
-                <p className="text-white text-sm">{project.description}</p>
-              </div>
+            <img 
+              src={project.image} 
+              alt={project.title} 
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              referrerPolicy="no-referrer"
+            />
+            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-2 text-center">
+              <h4 className="text-white text-[10px] md:text-sm font-semibold mb-1">{project.title}</h4>
+              <p className="text-[#a3e635] text-[8px] md:text-xs uppercase tracking-tighter">{project.category}</p>
             </div>
-            <h4 className="text-white font-semibold mb-1">{project.title}</h4>
-            <p className="text-sm text-white/40">{project.category}</p>
           </motion.div>
         ))}
       </div>
