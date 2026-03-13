@@ -396,60 +396,92 @@ function MyWorkSection({ onImageClick }: { onImageClick: (src: string) => void }
 }
 
 function ProjectsSection() {
+  const [selectedPdf, setSelectedPdf] = useState<string | null>(null);
+
   const projects = [
     { 
       title: '5-DOF Pick-and-Place System', 
       image: 'https://picsum.photos/seed/robot/600/800',
-      pdf: '/pdfs/5-dof-system.pdf'
+      pdf: '/pdfs/5-dof-system.pdf',
+      description: 'Developed a 5-DOF automated pick-and-place system with a 1 kg rated payload for glovebox manufacturing operations.'
     },
     { 
       title: 'House of Blanks Analysis', 
       image: 'https://picsum.photos/seed/factory/600/800',
-      pdf: '/pdfs/house-of-blanks.pdf'
+      pdf: '/pdfs/house-of-blanks.pdf',
+      description: 'Production analysis and bottleneck identification for high-volume apparel manufacturing.'
     },
     { 
       title: 'Mobile STEM Innovation Unit', 
       image: 'https://picsum.photos/seed/stem/600/800',
-      pdf: '/pdfs/stem-unit.pdf'
+      pdf: '/pdfs/stem-unit.pdf',
+      description: 'Mobile outreach trailer concept for interactive engineering activities and STEM education.'
     },
     { 
       title: 'Automotive Systems Mechanics', 
       image: 'https://picsum.photos/seed/car/600/800',
-      pdf: '/pdfs/automotive.pdf'
+      pdf: '/pdfs/automotive.pdf',
+      description: 'Servicing radiator, cooling, and electrical faults using OBD-II tools and mechanical expertise.'
     },
-    { title: 'Project 1', image: 'https://picsum.photos/seed/p1/600/800', pdf: '/pdfs/project1.pdf' },
-    { title: 'Project 2', image: 'https://picsum.photos/seed/p2/600/800', pdf: '/pdfs/project2.pdf' },
-    { title: 'Project 3', image: 'https://picsum.photos/seed/p3/600/800', pdf: '/pdfs/project3.pdf' },
-    { title: 'Project 4', image: 'https://picsum.photos/seed/p4/600/800', pdf: '/pdfs/project4.pdf' },
-    { title: 'Project 5', image: 'https://picsum.photos/seed/p5/600/800', pdf: '/pdfs/project5.pdf' },
+    { title: 'Project 1', image: 'https://picsum.photos/seed/p1/600/800', pdf: '/pdfs/project1.pdf', description: 'Engineering design and analysis project focusing on manufacturing efficiency.' },
+    { title: 'Project 2', image: 'https://picsum.photos/seed/p2/600/800', pdf: '/pdfs/project2.pdf', description: 'Robotic integration and control system development for industrial applications.' },
+    { title: 'Project 3', image: 'https://picsum.photos/seed/p3/600/800', pdf: '/pdfs/project3.pdf', description: 'CAD modeling and simulation of complex mechanical assemblies.' },
+    { title: 'Project 4', image: 'https://picsum.photos/seed/p4/600/800', pdf: '/pdfs/project4.pdf', description: 'Quality control and statistical process analysis for manufacturing lines.' },
+    { title: 'Project 5', image: 'https://picsum.photos/seed/p5/600/800', pdf: '/pdfs/project5.pdf', description: 'Sustainable manufacturing processes and material selection research.' },
   ];
+
+  if (selectedPdf) {
+    return (
+      <section className="h-full flex flex-col">
+        <header className="mb-6 flex items-center justify-between">
+          <button 
+            onClick={() => setSelectedPdf(null)}
+            className="text-[#a3e635] text-sm font-medium flex items-center gap-2 hover:underline"
+          >
+            ← Back to Projects
+          </button>
+        </header>
+        <div className="flex-1 bg-white rounded-2xl overflow-hidden min-h-[600px]">
+          <iframe 
+            src={selectedPdf} 
+            className="w-full h-full border-none"
+            title="Project PDF"
+          />
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section>
       <header className="mb-8">
-        <h2 className="text-3xl font-bold text-white mb-4">Engineering Projects</h2>
+        <h2 className="text-3xl font-bold text-white mb-4">Projects</h2>
         <div className="w-10 h-1.5 bg-[#a3e635] rounded-full"></div>
       </header>
 
-      <div className="grid grid-cols-3 gap-1 md:gap-2">
+      <div className="space-y-6">
         {projects.map((project, i) => (
           <motion.div 
             key={i}
             layout
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="group cursor-pointer relative aspect-[3/4] bg-[#2b2b2c] overflow-hidden"
-            onClick={() => window.open(project.pdf, '_blank')}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: i * 0.1 }}
+            className="bg-[#2b2b2c] border border-[#383838] rounded-2xl overflow-hidden flex flex-col sm:flex-row cursor-pointer hover:border-[#a3e635]/50 transition-colors group"
+            onClick={() => setSelectedPdf(project.pdf)}
           >
-            <img 
-              src={project.image} 
-              alt={project.title} 
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              referrerPolicy="no-referrer"
-            />
-            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-2 text-center">
-              <h4 className="text-white text-[10px] md:text-sm font-semibold mb-1">{project.title}</h4>
-              <p className="text-[#a3e635] text-[8px] md:text-xs uppercase tracking-tighter">View PDF</p>
+            <div className="w-full sm:w-48 aspect-[3/4] shrink-0 overflow-hidden">
+              <img 
+                src={project.image} 
+                alt={project.title} 
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+            <div className="p-6 flex flex-col justify-center">
+              <h4 className="text-xl font-bold text-white mb-2 group-hover:text-[#a3e635] transition-colors">{project.title}</h4>
+              <p className="text-white/60 text-sm leading-relaxed mb-4">{project.description}</p>
+              <div className="text-[#a3e635] text-xs font-bold uppercase tracking-wider">View Full Project →</div>
             </div>
           </motion.div>
         ))}
