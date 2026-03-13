@@ -318,21 +318,23 @@ function ResumeSection() {
   );
 }
 
+// Automatically detect all images in the public/images folder
+const imageModules = import.meta.glob('/public/images/*.webp', { eager: true });
+const detectedImageFiles = Object.keys(imageModules)
+  .map(path => path.split('/').pop() || '')
+  .sort((a, b) => {
+    const numA = parseInt(a.split('.')[0]) || 0;
+    const numB = parseInt(b.split('.')[0]) || 0;
+    return numA - numB;
+  });
+
 function MyWorkSection({ onImageClick }: { onImageClick: (src: string) => void }) {
   const [filter, setFilter] = useState('All');
   const filters = ['All', 'Engineering', 'Creative', 'Management'];
   
-  // List your filenames here. The code will automatically categorize them!
-  const imageFiles = [
-    '1.e.webp', '2.e.webp', '3.e.webp', '4.e.webp', '5.e.webp',
-    '6.e.webp', '7.e.webp', '8.e.webp', '9.e.webp', '10.e.webp',
-    '11.c.webp', '12.c.webp', '13.c.webp', '14.c.webp', '15.c.webp',
-    '16.m.webp', '17.m.webp', '18.m.webp', '19.m.webp', '20.m.webp'
-  ];
-
   const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
 
-  const photos = imageFiles.map(filename => {
+  const photos = detectedImageFiles.map(filename => {
     const parts = filename.split('.');
     const code = parts[1]; // Get the 'e', 'c', or 'm'
     
