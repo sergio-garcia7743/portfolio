@@ -15,18 +15,30 @@ import {
   Github,
   Twitter,
   Linkedin,
-  Instagram
+  Instagram,
+  Settings
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import ManageWork from './components/ManageWork';
+import workManifest from './data/work.json';
 
 const TABS = ['My Work', 'Projects', 'Resume'];
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('My Work');
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [showManager, setShowManager] = useState(false);
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 md:p-8 lg:p-12">
+      <AnimatePresence>
+        {showManager && (
+          <ManageWork 
+            onClose={() => setShowManager(false)} 
+            currentManifest={workManifest} 
+          />
+        )}
+      </AnimatePresence>
       <div className="max-w-7xl w-full flex flex-col lg:flex-row gap-6 items-start">
         
         {/* Sidebar */}
@@ -69,6 +81,16 @@ export default function App() {
               label="LOCATION" 
               value="Edinburg, TX" 
             />
+          </div>
+
+          <div className="mt-12 w-full">
+            <button 
+              onClick={() => setShowManager(true)}
+              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-white/5 border border-white/10 text-white/40 hover:text-white/80 hover:bg-white/10 transition-all text-xs font-medium uppercase tracking-widest"
+            >
+              <Settings size={14} />
+              Manage Portfolio
+            </button>
           </div>
         </aside>
 
@@ -344,20 +366,29 @@ function MyWorkSection({ onImageClick }: { onImageClick: (src: string) => void }
   
   const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
 
-  const photos = detectedImageFiles.map(filename => {
-    const parts = filename.split('.');
-    const code = parts[1]; // Get the 'e', 'c', or 'm'
-    
-    let category = 'Engineering';
-    if (code === 'c') category = 'Creative';
-    if (code === 'm') category = 'Management';
-    
-    return {
-      id: filename,
-      category,
-      image: `./images/${filename}`
-    };
-  });
+  // Use the manifest if it has items, otherwise fallback to folder scan
+  const photos = workManifest.length > 0 
+    ? workManifest.map(item => ({
+        id: item.filename,
+        category: item.category,
+        title: item.title,
+        image: `./images/${item.filename}`
+      }))
+    : detectedImageFiles.map(filename => {
+        const parts = filename.split('.');
+        const code = parts[1];
+        
+        let category = 'Engineering';
+        if (code === 'c') category = 'Creative';
+        if (code === 'm') category = 'Management';
+        
+        return {
+          id: filename,
+          category,
+          title: undefined,
+          image: `./images/${filename}`
+        };
+      });
 
   const filteredPhotos = (filter === 'All' ? photos : photos.filter(p => p.category === filter))
     .filter(p => !failedImages.has(p.id));
@@ -412,7 +443,13 @@ function MyWorkSection({ onImageClick }: { onImageClick: (src: string) => void }
                 });
               }}
             />
-            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
+              {photo.title && (
+                <div className="w-full p-3 bg-gradient-to-t from-black/80 to-transparent">
+                  <p className="text-[10px] md:text-xs text-white font-medium truncate uppercase tracking-wider">{photo.title}</p>
+                </div>
+              )}
+            </div>
           </motion.div>
         ))}
       </div>
