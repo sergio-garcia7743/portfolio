@@ -344,7 +344,7 @@ function ResumeSection() {
 }
 
 // Automatically detect all images in the public/images folder
-const imageModules = import.meta.glob('/public/images/*.webp', { eager: true });
+const imageModules = import.meta.glob('../public/images/*.webp', { eager: true });
 const detectedImageFiles = Object.keys(imageModules)
   .map(path => path.split('/').pop() || '')
   .sort((a, b) => {
