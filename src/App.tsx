@@ -19,10 +19,11 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
-const TABS = ['My Work', 'Resume', 'About'];
+const TABS = ['My Work', 'Projects', 'Resume', 'About'];
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('My Work');
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 md:p-8 lg:p-12">
@@ -111,12 +112,36 @@ export default function App() {
               >
                 {activeTab === 'About' && <AboutSection />}
                 {activeTab === 'Resume' && <ResumeSection />}
-                {activeTab === 'My Work' && <MyWorkSection />}
+                {activeTab === 'Projects' && <ProjectsSection />}
+                {activeTab === 'My Work' && <MyWorkSection onImageClick={setSelectedImage} />}
               </motion.div>
             </AnimatePresence>
           </div>
         </main>
       </div>
+
+      {/* Image Modal */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImage(null)}
+            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 cursor-zoom-out"
+          >
+            <motion.img 
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
+              src={selectedImage} 
+              alt="Full size" 
+              className="max-w-full max-h-full rounded-lg shadow-2xl"
+              referrerPolicy="no-referrer"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -305,47 +330,27 @@ function ResumeSection() {
   );
 }
 
-function MyWorkSection() {
+function MyWorkSection({ onImageClick }: { onImageClick: (src: string) => void }) {
   const [filter, setFilter] = useState('All');
   const filters = ['All', 'Engineering', 'Creative', 'Events'];
   
-  const projects = [
-    { 
-      title: '5-DOF Pick-and-Place System', 
-      category: 'Engineering', 
-      image: 'https://picsum.photos/seed/robot/600/800',
-      pdf: '/pdfs/5-dof-system.pdf'
-    },
-    { 
-      title: 'House of Blanks Analysis', 
-      category: 'Engineering', 
-      image: 'https://picsum.photos/seed/factory/600/800',
-      pdf: '/pdfs/house-of-blanks.pdf'
-    },
-    { 
-      title: 'Mobile STEM Innovation Unit', 
-      category: 'Engineering', 
-      image: 'https://picsum.photos/seed/stem/600/800',
-      pdf: '/pdfs/stem-unit.pdf'
-    },
-    { 
-      title: 'Automotive Systems Mechanics', 
-      category: 'Engineering', 
-      image: 'https://picsum.photos/seed/car/600/800',
-      pdf: '/pdfs/automotive.pdf'
-    },
-    { title: 'Project 1', category: 'Engineering', image: 'https://picsum.photos/seed/p1/600/800', pdf: '/pdfs/project1.pdf' },
-    { title: 'Project 2', category: 'Engineering', image: 'https://picsum.photos/seed/p2/600/800', pdf: '/pdfs/project2.pdf' },
-    { title: 'Project 3', category: 'Engineering', image: 'https://picsum.photos/seed/p3/600/800', pdf: '/pdfs/project3.pdf' },
-    { title: 'Project 4', category: 'Engineering', image: 'https://picsum.photos/seed/p4/600/800', pdf: '/pdfs/project4.pdf' },
-    { title: 'Project 5', category: 'Engineering', image: 'https://picsum.photos/seed/p5/600/800', pdf: '/pdfs/project5.pdf' },
-    { title: 'Creative Shot 1', category: 'Creative', image: 'https://picsum.photos/seed/c1/600/800', pdf: '#' },
-    { title: 'Creative Shot 2', category: 'Creative', image: 'https://picsum.photos/seed/c2/600/800', pdf: '#' },
-    { title: 'Event Highlight 1', category: 'Events', image: 'https://picsum.photos/seed/e1/600/800', pdf: '#' },
-    { title: 'Event Highlight 2', category: 'Events', image: 'https://picsum.photos/seed/e2/600/800', pdf: '#' },
+  const photos = [
+    { category: 'Engineering', image: 'https://picsum.photos/seed/robot/600/800' },
+    { category: 'Engineering', image: 'https://picsum.photos/seed/factory/600/800' },
+    { category: 'Engineering', image: 'https://picsum.photos/seed/stem/600/800' },
+    { category: 'Engineering', image: 'https://picsum.photos/seed/car/600/800' },
+    { category: 'Engineering', image: 'https://picsum.photos/seed/p1/600/800' },
+    { category: 'Engineering', image: 'https://picsum.photos/seed/p2/600/800' },
+    { category: 'Engineering', image: 'https://picsum.photos/seed/p3/600/800' },
+    { category: 'Engineering', image: 'https://picsum.photos/seed/p4/600/800' },
+    { category: 'Engineering', image: 'https://picsum.photos/seed/p5/600/800' },
+    { category: 'Creative', image: 'https://picsum.photos/seed/c1/600/800' },
+    { category: 'Creative', image: 'https://picsum.photos/seed/c2/600/800' },
+    { category: 'Events', image: 'https://picsum.photos/seed/e1/600/800' },
+    { category: 'Events', image: 'https://picsum.photos/seed/e2/600/800' },
   ];
 
-  const filteredProjects = filter === 'All' ? projects : projects.filter(p => p.category === filter);
+  const filteredPhotos = filter === 'All' ? photos : photos.filter(p => p.category === filter);
 
   return (
     <section>
@@ -367,14 +372,74 @@ function MyWorkSection() {
       </div>
 
       <div className="grid grid-cols-3 gap-1 md:gap-2">
-        {filteredProjects.map((project, i) => (
+        {filteredPhotos.map((photo, i) => (
           <motion.div 
-            key={`${project.title}-${i}`}
+            key={i}
             layout
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="group cursor-pointer relative aspect-[3/4] bg-[#2b2b2c] overflow-hidden"
-            onClick={() => project.pdf !== '#' && window.open(project.pdf, '_blank')}
+            onClick={() => onImageClick(photo.image)}
+          >
+            <img 
+              src={photo.image} 
+              alt="Work" 
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              referrerPolicy="no-referrer"
+            />
+            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ProjectsSection() {
+  const projects = [
+    { 
+      title: '5-DOF Pick-and-Place System', 
+      image: 'https://picsum.photos/seed/robot/600/800',
+      pdf: '/pdfs/5-dof-system.pdf'
+    },
+    { 
+      title: 'House of Blanks Analysis', 
+      image: 'https://picsum.photos/seed/factory/600/800',
+      pdf: '/pdfs/house-of-blanks.pdf'
+    },
+    { 
+      title: 'Mobile STEM Innovation Unit', 
+      image: 'https://picsum.photos/seed/stem/600/800',
+      pdf: '/pdfs/stem-unit.pdf'
+    },
+    { 
+      title: 'Automotive Systems Mechanics', 
+      image: 'https://picsum.photos/seed/car/600/800',
+      pdf: '/pdfs/automotive.pdf'
+    },
+    { title: 'Project 1', image: 'https://picsum.photos/seed/p1/600/800', pdf: '/pdfs/project1.pdf' },
+    { title: 'Project 2', image: 'https://picsum.photos/seed/p2/600/800', pdf: '/pdfs/project2.pdf' },
+    { title: 'Project 3', image: 'https://picsum.photos/seed/p3/600/800', pdf: '/pdfs/project3.pdf' },
+    { title: 'Project 4', image: 'https://picsum.photos/seed/p4/600/800', pdf: '/pdfs/project4.pdf' },
+    { title: 'Project 5', image: 'https://picsum.photos/seed/p5/600/800', pdf: '/pdfs/project5.pdf' },
+  ];
+
+  return (
+    <section>
+      <header className="mb-8">
+        <h2 className="text-3xl font-bold text-white mb-4">Engineering Projects</h2>
+        <div className="w-10 h-1.5 bg-[#a3e635] rounded-full"></div>
+      </header>
+
+      <div className="grid grid-cols-3 gap-1 md:gap-2">
+        {projects.map((project, i) => (
+          <motion.div 
+            key={i}
+            layout
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="group cursor-pointer relative aspect-[3/4] bg-[#2b2b2c] overflow-hidden"
+            onClick={() => window.open(project.pdf, '_blank')}
           >
             <img 
               src={project.image} 
@@ -384,7 +449,7 @@ function MyWorkSection() {
             />
             <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-2 text-center">
               <h4 className="text-white text-[10px] md:text-sm font-semibold mb-1">{project.title}</h4>
-              <p className="text-[#a3e635] text-[8px] md:text-xs uppercase tracking-tighter">{project.category}</p>
+              <p className="text-[#a3e635] text-[8px] md:text-xs uppercase tracking-tighter">View PDF</p>
             </div>
           </motion.div>
         ))}
