@@ -42,36 +42,29 @@ export default function App() {
             <div className="absolute bottom-2 right-2 w-4 h-4 bg-green-500 border-2 border-[#1e1e1f] rounded-full"></div>
           </div>
 
-          <h1 className="text-2xl font-semibold text-white mb-2 text-center">Aakash Rajbanshi</h1>
+          <h1 className="text-2xl font-semibold text-white mb-2 text-center">Sergio Garcia</h1>
           <div className="bg-[#2b2b2c] text-xs font-medium px-4 py-1.5 rounded-lg text-white/90 mb-8">
-            Software Developer
+            Manufacturing Engineering Student
           </div>
 
           <div className="w-full h-px bg-[#383838] mb-8"></div>
 
           <div className="w-full space-y-6">
             <ContactItem 
-              icon={<Mail size={18} className="text-[#ffdb70]" />} 
+              icon={<Mail size={18} className="text-[#a3e635]" />} 
               label="EMAIL" 
-              value="aakashrajbanshi58@..." 
+              value="sergio.garcia02@utrgv.edu" 
             />
             <ContactItem 
-              icon={<Phone size={18} className="text-[#ffdb70]" />} 
+              icon={<Phone size={18} className="text-[#a3e635]" />} 
               label="PHONE" 
-              value="+977 9812345678" 
+              value="(956) 369-7743" 
             />
             <ContactItem 
-              icon={<MapPin size={18} className="text-[#ffdb70]" />} 
+              icon={<MapPin size={18} className="text-[#a3e635]" />} 
               label="LOCATION" 
-              value="Kathmandu, Nepal" 
+              value="Edinburg, TX" 
             />
-          </div>
-
-          <div className="flex gap-4 mt-10">
-            <SocialIcon icon={<Github size={18} />} />
-            <SocialIcon icon={<Twitter size={18} />} />
-            <SocialIcon icon={<Linkedin size={18} />} />
-            <SocialIcon icon={<Instagram size={18} />} />
           </div>
         </aside>
 
@@ -85,7 +78,7 @@ export default function App() {
                 <li key={tab}>
                   <button 
                     onClick={() => setActiveTab(tab)}
-                    className={`text-sm font-medium transition-colors ${activeTab === tab ? 'text-[#ffdb70]' : 'text-white/60 hover:text-white/80'}`}
+                    className={`text-sm font-medium transition-colors ${activeTab === tab ? 'text-[#a3e635]' : 'text-white/60 hover:text-white/80'}`}
                   >
                     {tab}
                   </button>
@@ -100,7 +93,7 @@ export default function App() {
                 <button 
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`text-xs font-medium px-3 py-1 rounded-full transition-colors ${activeTab === tab ? 'bg-[#383838] text-[#ffdb70]' : 'text-white/60'}`}
+                  className={`text-xs font-medium px-3 py-1 rounded-full transition-colors ${activeTab === tab ? 'bg-[#383838] text-[#a3e635]' : 'text-white/60'}`}
                 >
                   {tab}
                 </button>
@@ -142,9 +135,9 @@ function ContactItem({ icon, label, value }: { icon: React.ReactNode, label: str
   );
 }
 
-function SocialIcon({ icon }: { icon: React.ReactNode }) {
+function SocialIcon({ icon, href = "#" }: { icon: React.ReactNode, href?: string }) {
   return (
-    <a href="#" className="text-white/40 hover:text-[#ffdb70] transition-colors">
+    <a href={href} target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#ffdb70] transition-colors">
       {icon}
     </a>
   );
@@ -155,55 +148,63 @@ function AboutSection() {
     <section>
       <header className="mb-8">
         <h2 className="text-3xl font-bold text-white mb-4">About Me</h2>
-        <div className="w-10 h-1.5 bg-[#ffdb70] rounded-full"></div>
+        <div className="w-10 h-1.5 bg-[#a3e635] rounded-full"></div>
       </header>
 
       <div className="space-y-6 text-white/70 leading-relaxed mb-12">
         <p>
-          A passionate Flutter developer with strong expertise in cross-platform apps, REST APIs, UI/UX, widgets, and state 
-          management solutions. Proven track record in delivering cutting-edge solutions, including API integration, third-party 
-          libraries, and performance optimization. Adept at debugging to ensure high-quality, responsive apps and An agile 
-          collaborator committed to staying current with industry trends.
+          I am a Manufacturing Engineering student at the University of Texas Rio Grande Valley, specializing in robotics, 
+          automated systems, and production analysis. My experience ranges from developing 5-DOF automated pick-and-place 
+          systems for nuclear research facilities to leading large-scale event operations.
         </p>
         <p>
-          If you're seeking a skilled Flutter developer to breathe life into your project and exceed your expectations, I am here to 
-          collaborate and create magic together. Reach out, and let's transform your vision into a reality!
+          With a strong foundation in CAD/Simulation (Creo, SolidWorks), manufacturing processes, and programming (C++, Python), 
+          I am passionate about optimizing industrial workflows and designing scalable robotic architectures. I am currently 
+          serving as a Research Assistant and an HSF Scholar, committed to driving innovation in engineering.
         </p>
       </div>
 
       <h3 className="text-2xl font-bold text-white mb-8">What I'm Doing</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
         <ServiceCard 
-          icon={<Smartphone size={32} className="text-[#ffdb70]" />}
-          title="Mobile Apps"
-          description="Professional development of applications for Android and ios."
+          icon={<Smartphone size={32} className="text-[#a3e635]" />}
+          title="Robotics & Automation"
+          description="Designing and integrating 5-DOF robotic systems and Arduino-based controls for industrial applications."
         />
         <ServiceCard 
-          icon={<Code size={32} className="text-[#ffdb70]" />}
-          title="Web Development"
-          description="High-quality development of sites at the professional level."
+          icon={<Code size={32} className="text-[#a3e635]" />}
+          title="CAD & Simulation"
+          description="Creating manufacturable architectures using Creo, SolidWorks, and Siemens NX with DFM/DFA principles."
         />
         <ServiceCard 
-          icon={<Layout size={32} className="text-[#ffdb70]" />}
-          title="UI/UX Design"
-          description="The most modern and high-quality design made at a professional level."
+          icon={<Layout size={32} className="text-[#a3e635]" />}
+          title="Production Analysis"
+          description="Forecasting requirements and identifying bottlenecks through cycle time, WIP, and throughput analysis."
         />
         <ServiceCard 
-          icon={<Server size={32} className="text-[#ffdb70]" />}
-          title="Backend Development"
-          description="High-performance backend services designed for scalability and seamless user experience."
+          icon={<Server size={32} className="text-[#a3e635]" />}
+          title="Manufacturing Quality"
+          description="Implementing SOPs and continuous improvement initiatives using Statistical Process Control."
         />
       </div>
 
-      <h3 className="text-2xl font-bold text-white mb-8">Skills</h3>
-      <div className="flex flex-wrap gap-6">
-        <SkillIcon src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" />
-        <SkillIcon src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg" />
-        <SkillIcon src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" />
-        <SkillIcon src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" />
-        <SkillIcon src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" />
+      <h3 className="text-2xl font-bold text-white mb-8">Technical Skills</h3>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <SkillCategory title="CAD & Simulation" skills="Creo, SolidWorks, Siemens NX, Inventor, Onshape, GD&T" />
+        <SkillCategory title="Manufacturing" skills="CNC Machining, 3D Printing, SPC, Continuous Improvement, SOPs" />
+        <SkillCategory title="Programming" skills="C++, Python, Arduino IDE, API Integration, JavaScript, VBA" />
+        <SkillCategory title="Robotics" skills="Pick-and-Place, End-Effectors, Pneumatics, Actuator Integration" />
       </div>
     </section>
+  );
+}
+
+function SkillCategory({ title, skills }: { title: string, skills: string }) {
+  return (
+    <div className="bg-[#2b2b2c] border border-[#383838] p-4 rounded-xl">
+      <h4 className="text-[#a3e635] text-sm font-bold mb-1 uppercase tracking-wider">{title}</h4>
+      <p className="text-white/70 text-sm">{skills}</p>
+    </div>
   );
 }
 
@@ -213,18 +214,14 @@ function ResumeSection() {
       <header className="mb-8 flex justify-between items-center">
         <div>
           <h2 className="text-3xl font-bold text-white mb-4">Resume</h2>
-          <div className="w-10 h-1.5 bg-[#ffdb70] rounded-full"></div>
+          <div className="w-10 h-1.5 bg-[#a3e635] rounded-full"></div>
         </div>
-        <button className="bg-[#2b2b2c] border border-[#383838] text-[#ffdb70] px-6 py-3 rounded-xl flex items-center gap-2 hover:bg-[#383838] transition-colors text-sm font-medium">
-          <Smartphone size={18} />
-          Download CV
-        </button>
       </header>
 
       <div className="space-y-12">
         <div>
           <div className="flex items-center gap-4 mb-8">
-            <div className="w-12 h-12 bg-[#2b2b2c] border border-[#383838] rounded-xl flex items-center justify-center text-[#ffdb70]">
+            <div className="w-12 h-12 bg-[#2b2b2c] border border-[#383838] rounded-xl flex items-center justify-center text-[#a3e635]">
               <Code size={24} />
             </div>
             <h3 className="text-2xl font-bold text-white">Education</h3>
@@ -232,21 +229,18 @@ function ResumeSection() {
 
           <div className="ml-6 border-l border-[#383838] space-y-10">
             <TimelineItem 
-              title="Nihareeka College Of Management And Information Technology"
-              subtitle="Bachelor of Science in Computer Science and Information Technology (B.Sc. CSIT)"
-              date="2017 — 2021"
-            />
-            <TimelineItem 
-              title="Greenland International College"
-              subtitle="+2 Science"
-              date="2015 — 2017"
+              title="University of Texas Rio Grande Valley"
+              subtitle="Bachelor of Science in Manufacturing Engineering (ABET Accredited)"
+              date="Expected May 2026"
+              location="Edinburg, TX"
+              description="HSF Scholar (Hispanic Scholarship Fund)"
             />
           </div>
         </div>
 
         <div>
           <div className="flex items-center gap-4 mb-8">
-            <div className="w-12 h-12 bg-[#2b2b2c] border border-[#383838] rounded-xl flex items-center justify-center text-[#ffdb70]">
+            <div className="w-12 h-12 bg-[#2b2b2c] border border-[#383838] rounded-xl flex items-center justify-center text-[#a3e635]">
               <Code size={24} />
             </div>
             <h3 className="text-2xl font-bold text-white">Experience</h3>
@@ -254,59 +248,55 @@ function ResumeSection() {
 
           <div className="ml-6 border-l border-[#383838] space-y-10">
             <TimelineItem 
-              title="Flutter Developer"
-              subtitle="Adzen Tech Pvt. Ltd"
-              date="Feb, 2025 — Present • 1 yr 1 mo"
-              location="Kathmandu, Nepal"
-              description="Responsible for designing and developing mobile applications using Flutter."
-            />
-            <TimelineItem 
-              title="Mid-Level Flutter Developer"
-              subtitle="Tokma Technologies"
-              date="Aug, 2024 — Feb, 2025 • 6 mo"
-              location="Kathmandu, Nepal"
+              title="Research Assistant"
+              subtitle="University of Texas Rio Grande Valley"
+              date="Aug 2025 — Present"
+              location="Edinburg, TX"
+              description="Senior Capstone Project Sponsored by Los Alamos National Lab & Savannah River Nuclear Solutions"
               points={[
-                "Developed new features and implemented UI designs into code using Flutter.",
-                "Designed and created custom e-form features including scrolling features and data entries.",
-                "Integrated Google and Facebook sign-in for user authentication.",
-                "Designed dynamic functionalities using the BLOC design pattern.",
-                "Integrated APIs for seamless data communication and backend functionality.",
-                "Implemented payment gateway integration like Khalti for secure transactions.",
-                "Collaborated with other developers and backend team to deliver features.",
-                "Participated in team meetings to discuss new features and project updates.",
-                "Ensured smooth functionality and user-friendly experiences throughout the app.",
-                "Performed code review and deployed the app in Playstore and Appstore."
+                "Developed 5-DOF automated pick-and-place system with 1 kg rated payload for glovebox manufacturing operations",
+                "Collaborated on link sizing using Excel kinematics model to optimize reach and payload capacity",
+                "Integrated Arduino-based control enabling manual GUI control and pre-programmed motion sequences",
+                "Applied GD&T to robotic components and assemblies to support manufacturing and fabrication documentation",
+                "Designed manufacturable robot architecture using DFM and DFA principles for scalable production",
+                "Designed 3-tier electronics enclosure housing power supply, control hardware, and cable management"
               ]}
             />
             <TimelineItem 
-              title="Flutter Developer"
-              subtitle="Inflancer Technology"
-              date="Oct, 2022 — Aug, 2024 • 1 yr 10 mo"
-              location="Kathmandu, Nepal"
+              title="Division Lead, Marketing & Special Events"
+              subtitle="City of McAllen"
+              date="May 2022 — Nov 2024"
+              location="McAllen, TX"
               points={[
-                "Developed new features and transformed UI designs into fully functional user interfaces.",
-                "Integrated payment solution like eSewa, for secure and seamless transactions.",
-                "Optimized application performance to ensure a smooth and engaging user experience.",
-                "Supported other team members initiatives by developing solutions to common problems and sharing those solutions.",
-                "Identified and resolved bugs, improving app stability and performance.",
-                "Wrote clean, maintainable, and testable code following best practices.",
-                "Utilization of latest version of support libraries to ensure backend compatibility.",
-                "Integrated payment solution like eSewa, for secure and seamless transactions.",
-                "Collaborated with backend developers, designers, and cross-functional teams to deliver scalable, high-quality solutions.",
-                "Performed code review and deployed the app in Playstore and Appstore."
+                "Coordinated cross-functional teams delivering 8 regional events reaching 314K+ attendees annually",
+                "Implemented process tracking systems and SOPs supporting continuous improvement initiatives",
+                "Produced technical drawings and specifications for race medals supporting vendor bidding and procurement",
+                "Led teams of 20+ staff improving processes and logistics and received the City of McAllen Innovation Award"
               ]}
             />
+          </div>
+        </div>
+
+        <div>
+          <div className="flex items-center gap-4 mb-8">
+            <div className="w-12 h-12 bg-[#2b2b2c] border border-[#383838] rounded-xl flex items-center justify-center text-[#a3e635]">
+              <Code size={24} />
+            </div>
+            <h3 className="text-2xl font-bold text-white">Leadership</h3>
+          </div>
+
+          <div className="ml-6 border-l border-[#383838] space-y-10">
             <TimelineItem 
-              title="Flutter Developer Intern"
-              subtitle="YAJ Tech Pvt. Ltd"
-              date="May, 2022 — Sep, 2022 • 4 mo"
-              location="Kathmandu, Nepal"
-              points={[
-                "Assisted in developing and maintaining Flutter applications, ensuring seamless functionality and user-friendly interfaces.",
-                "Supported the implementation of visually appealing UI designs that aligned with client requirements and design principles.",
-                "Collaborated with cross-functional teams, including back-end developers and designers, to deliver efficient, high-quality, and scalable solutions.",
-                "Gained hands-on experience in debugging, troubleshooting, and refining app features to improve user experience."
-              ]}
+              title="Marketing Chair"
+              subtitle="Society of Hispanic Professional Engineers (SHPE)"
+              date="Present"
+              description="Led branding initiatives and developed promotional materials to increase SHPE engagement and chapter visibility"
+            />
+            <TimelineItem 
+              title="Mentor"
+              subtitle="MentorSHPE, Society of Hispanic Professional Engineers"
+              date="Present"
+              description="Serve as a MentorSHPE mentor, delivering structured career and STEM development guidance to mentees"
             />
           </div>
         </div>
@@ -317,18 +307,33 @@ function ResumeSection() {
 
 function PortfolioSection() {
   const [filter, setFilter] = useState('All');
-  const filters = ['All', 'Applications', 'Web development', 'UI/UX'];
+  const filters = ['All', 'Robotics', 'Analysis', 'Mechanics'];
   
   const projects = [
-    { title: 'Nagarik App', category: 'Applications', image: 'https://picsum.photos/seed/nagarik/400/250' },
-    { title: 'Ambition Guru', category: 'Applications', image: 'https://picsum.photos/seed/ambition/400/250' },
-    { title: 'Sociair', category: 'Applications', image: 'https://picsum.photos/seed/sociair/400/250' },
-    { title: 'Tokma', category: 'Applications', image: 'https://picsum.photos/seed/tokma/400/250' },
-    { title: 'Saara', category: 'Applications', image: 'https://picsum.photos/seed/saara/400/250' },
-    { title: 'Ifood', category: 'Applications', image: 'https://picsum.photos/seed/ifood/400/250' },
-    { title: 'MeroDate', category: 'Applications', image: 'https://picsum.photos/seed/merodate/400/250' },
-    { title: 'Weather App', category: 'Applications', image: 'https://picsum.photos/seed/weather/400/250' },
-    { title: 'Music App', category: 'Applications', image: 'https://picsum.photos/seed/music/400/250' },
+    { 
+      title: '5-DOF Pick-and-Place System', 
+      category: 'Robotics', 
+      image: 'https://picsum.photos/seed/robot/400/250',
+      description: 'Automated system with 1kg payload for glovebox manufacturing operations.'
+    },
+    { 
+      title: 'House of Blanks Analysis', 
+      category: 'Analysis', 
+      image: 'https://picsum.photos/seed/factory/400/250',
+      description: 'Production analysis and bottleneck identification for high-volume apparel.'
+    },
+    { 
+      title: 'Mobile STEM Innovation Unit', 
+      category: 'Robotics', 
+      image: 'https://picsum.photos/seed/stem/400/250',
+      description: 'Mobile outreach trailer concept for interactive engineering activities.'
+    },
+    { 
+      title: 'Automotive Systems Mechanics', 
+      category: 'Mechanics', 
+      image: 'https://picsum.photos/seed/car/400/250',
+      description: 'Servicing radiator, cooling, and electrical faults using OBD-II tools.'
+    },
   ];
 
   const filteredProjects = filter === 'All' ? projects : projects.filter(p => p.category === filter);
@@ -336,8 +341,8 @@ function PortfolioSection() {
   return (
     <section>
       <header className="mb-8">
-        <h2 className="text-3xl font-bold text-white mb-4">Portfolio</h2>
-        <div className="w-10 h-1.5 bg-[#ffdb70] rounded-full"></div>
+        <h2 className="text-3xl font-bold text-white mb-4">Engineering Projects</h2>
+        <div className="w-10 h-1.5 bg-[#a3e635] rounded-full"></div>
       </header>
 
       <div className="flex gap-6 mb-10 overflow-x-auto pb-2">
@@ -345,7 +350,7 @@ function PortfolioSection() {
           <button 
             key={f}
             onClick={() => setFilter(f)}
-            className={`text-sm font-medium transition-colors whitespace-nowrap ${filter === f ? 'text-[#ffdb70]' : 'text-white/60 hover:text-white/80'}`}
+            className={`text-sm font-medium transition-colors whitespace-nowrap ${filter === f ? 'text-[#a3e635]' : 'text-white/60 hover:text-white/80'}`}
           >
             {f}
           </button>
@@ -368,10 +373,8 @@ function PortfolioSection() {
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                <div className="w-12 h-12 bg-[#383838] rounded-xl flex items-center justify-center text-[#ffdb70]">
-                  <Smartphone size={20} />
-                </div>
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-6 text-center">
+                <p className="text-white text-sm">{project.description}</p>
               </div>
             </div>
             <h4 className="text-white font-semibold mb-1">{project.title}</h4>
@@ -393,17 +396,17 @@ function TimelineItem({ title, subtitle, date, location, description, points }: 
 }) {
   return (
     <div className="relative pl-8 pb-2">
-      <div className="absolute left-[-5px] top-0 w-2.5 h-2.5 bg-[#ffdb70] rounded-full border-2 border-[#1e1e1f] z-10 shadow-[0_0_0_4px_#383838]"></div>
+      <div className="absolute left-[-5px] top-0 w-2.5 h-2.5 bg-[#a3e635] rounded-full border-2 border-[#1e1e1f] z-10 shadow-[0_0_0_4px_#383838]"></div>
       <h4 className="text-white font-bold mb-1">{title}</h4>
-      <p className="text-[#ffdb70] text-sm font-medium mb-1">{subtitle}</p>
-      <p className="text-[#ffdb70] text-xs font-semibold mb-2">{date}</p>
+      <p className="text-[#a3e635] text-sm font-medium mb-1">{subtitle}</p>
+      <p className="text-[#a3e635] text-xs font-semibold mb-2">{date}</p>
       {location && <p className="text-white/40 text-xs italic mb-2">{location}</p>}
       {description && <p className="text-white/60 text-sm leading-relaxed">{description}</p>}
       {points && (
         <ul className="space-y-2 mt-3">
           {points.map((point, i) => (
             <li key={i} className="text-white/60 text-sm leading-relaxed flex gap-2">
-              <span className="text-[#ffdb70]">•</span>
+              <span className="text-[#a3e635]">•</span>
               {point}
             </li>
           ))}
