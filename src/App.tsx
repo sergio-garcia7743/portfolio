@@ -34,10 +34,13 @@ export default function App() {
           <div className="relative mb-6">
             <div className="w-32 h-32 bg-[#383838] rounded-3xl overflow-hidden flex items-center justify-center">
               <img 
-                src="https://api.dicebear.com/7.x/avataaars/svg?seed=Aakash&backgroundColor=383838" 
-                alt="Avatar" 
+                src="./profile.webp" 
+                alt="Sergio Garcia" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = "https://api.dicebear.com/7.x/avataaars/svg?seed=Sergio&backgroundColor=383838";
+                }}
               />
             </div>
             <div className="absolute bottom-2 right-2 w-4 h-4 bg-green-500 border-2 border-[#1e1e1f] rounded-full"></div>
