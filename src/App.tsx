@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
-const TABS = ['My Work', 'Projects', 'Resume', 'About'];
+const TABS = ['My Work', 'Projects', 'Resume'];
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('My Work');
@@ -110,7 +110,6 @@ export default function App() {
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.2 }}
               >
-                {activeTab === 'About' && <AboutSection />}
                 {activeTab === 'Resume' && <ResumeSection />}
                 {activeTab === 'Projects' && <ProjectsSection />}
                 {activeTab === 'My Work' && <MyWorkSection onImageClick={setSelectedImage} />}
@@ -168,59 +167,33 @@ function SocialIcon({ icon, href = "#" }: { icon: React.ReactNode, href?: string
   );
 }
 
-function AboutSection() {
+function TimelineItem({ title, subtitle, date, location, description, points }: { 
+  title: string, 
+  subtitle: string, 
+  date: string, 
+  location?: string, 
+  description?: string,
+  points?: string[]
+}) {
   return (
-    <section>
-      <header className="mb-8">
-        <h2 className="text-3xl font-bold text-white mb-4">About Me</h2>
-        <div className="w-10 h-1.5 bg-[#a3e635] rounded-full"></div>
-      </header>
-
-      <div className="space-y-6 text-white/70 leading-relaxed mb-12">
-        <p>
-          I am a Manufacturing Engineering student at the University of Texas Rio Grande Valley, specializing in robotics, 
-          automated systems, and production analysis. My experience ranges from developing 5-DOF automated pick-and-place 
-          systems for nuclear research facilities to leading large-scale event operations.
-        </p>
-        <p>
-          With a strong foundation in CAD/Simulation (Creo, SolidWorks), manufacturing processes, and programming (C++, Python), 
-          I am passionate about optimizing industrial workflows and designing scalable robotic architectures. I am currently 
-          serving as a Research Assistant and an HSF Scholar, committed to driving innovation in engineering.
-        </p>
-      </div>
-
-      <h3 className="text-2xl font-bold text-white mb-8">What I'm Doing</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-        <ServiceCard 
-          icon={<Smartphone size={32} className="text-[#a3e635]" />}
-          title="Robotics & Automation"
-          description="Designing and integrating 5-DOF robotic systems and Arduino-based controls for industrial applications."
-        />
-        <ServiceCard 
-          icon={<Code size={32} className="text-[#a3e635]" />}
-          title="CAD & Simulation"
-          description="Creating manufacturable architectures using Creo, SolidWorks, and Siemens NX with DFM/DFA principles."
-        />
-        <ServiceCard 
-          icon={<Layout size={32} className="text-[#a3e635]" />}
-          title="Production Analysis"
-          description="Forecasting requirements and identifying bottlenecks through cycle time, WIP, and throughput analysis."
-        />
-        <ServiceCard 
-          icon={<Server size={32} className="text-[#a3e635]" />}
-          title="Manufacturing Quality"
-          description="Implementing SOPs and continuous improvement initiatives using Statistical Process Control."
-        />
-      </div>
-
-      <h3 className="text-2xl font-bold text-white mb-8">Technical Skills</h3>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <SkillCategory title="CAD & Simulation" skills="Creo, SolidWorks, Siemens NX, Inventor, Onshape, GD&T" />
-        <SkillCategory title="Manufacturing" skills="CNC Machining, 3D Printing, SPC, Continuous Improvement, SOPs" />
-        <SkillCategory title="Programming" skills="C++, Python, Arduino IDE, API Integration, JavaScript, VBA" />
-        <SkillCategory title="Robotics" skills="Pick-and-Place, End-Effectors, Pneumatics, Actuator Integration" />
-      </div>
-    </section>
+    <div className="relative pl-8 pb-2">
+      <div className="absolute left-[-5px] top-0 w-2.5 h-2.5 bg-[#a3e635] rounded-full border-2 border-[#1e1e1f] z-10 shadow-[0_0_0_4px_#383838]"></div>
+      <h4 className="text-white font-bold mb-1">{title}</h4>
+      <p className="text-[#a3e635] text-sm font-medium mb-1">{subtitle}</p>
+      <p className="text-[#a3e635] text-xs font-semibold mb-2">{date}</p>
+      {location && <p className="text-white/40 text-xs italic mb-2">{location}</p>}
+      {description && <p className="text-white/60 text-sm leading-relaxed">{description}</p>}
+      {points && (
+        <ul className="space-y-2 mt-3">
+          {points.map((point, i) => (
+            <li key={i} className="text-white/60 text-sm leading-relaxed flex gap-2">
+              <span className="text-[#a3e635]">•</span>
+              {point}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }
 
@@ -325,6 +298,21 @@ function ResumeSection() {
             />
           </div>
         </div>
+
+        <div>
+          <div className="flex items-center gap-4 mb-8">
+            <div className="w-12 h-12 bg-[#2b2b2c] border border-[#383838] rounded-xl flex items-center justify-center text-[#a3e635]">
+              <Code size={24} />
+            </div>
+            <h3 className="text-2xl font-bold text-white">Technical Skills</h3>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 ml-6">
+            <SkillCategory title="CAD & Simulation" skills="Creo, SolidWorks, Siemens NX, Inventor, Onshape, GD&T" />
+            <SkillCategory title="Manufacturing" skills="CNC Machining, 3D Printing, SPC, Continuous Improvement, SOPs" />
+            <SkillCategory title="Programming" skills="C++, Python, Arduino IDE, API Integration, JavaScript, VBA" />
+            <SkillCategory title="Robotics" skills="Pick-and-Place, End-Effectors, Pneumatics, Actuator Integration" />
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -356,7 +344,14 @@ function MyWorkSection({ onImageClick }: { onImageClick: (src: string) => void }
     <section>
       <header className="mb-8">
         <h2 className="text-3xl font-bold text-white mb-4">My Work</h2>
-        <div className="w-10 h-1.5 bg-[#a3e635] rounded-full"></div>
+        <div className="w-10 h-1.5 bg-[#a3e635] rounded-full mb-6"></div>
+        <p className="text-white/70 leading-relaxed">
+          I am a Manufacturing Engineering student at the University of Texas Rio Grande Valley, specializing in robotics, 
+          automated systems, and production analysis. My experience ranges from developing 5-DOF automated pick-and-place 
+          systems for nuclear research facilities to leading large-scale event operations. With a strong foundation in CAD/Simulation (Creo, SolidWorks), 
+          manufacturing processes, and programming (C++, Python), I am passionate about optimizing industrial workflows and designing scalable robotic architectures. 
+          I am currently serving as a Research Assistant and an HSF Scholar, committed to driving innovation in engineering.
+        </p>
       </header>
 
       <div className="flex gap-6 mb-10 overflow-x-auto pb-2">
@@ -490,52 +485,5 @@ function ProjectsSection() {
   );
 }
 
-function TimelineItem({ title, subtitle, date, location, description, points }: { 
-  title: string, 
-  subtitle: string, 
-  date: string, 
-  location?: string, 
-  description?: string,
-  points?: string[]
-}) {
-  return (
-    <div className="relative pl-8 pb-2">
-      <div className="absolute left-[-5px] top-0 w-2.5 h-2.5 bg-[#a3e635] rounded-full border-2 border-[#1e1e1f] z-10 shadow-[0_0_0_4px_#383838]"></div>
-      <h4 className="text-white font-bold mb-1">{title}</h4>
-      <p className="text-[#a3e635] text-sm font-medium mb-1">{subtitle}</p>
-      <p className="text-[#a3e635] text-xs font-semibold mb-2">{date}</p>
-      {location && <p className="text-white/40 text-xs italic mb-2">{location}</p>}
-      {description && <p className="text-white/60 text-sm leading-relaxed">{description}</p>}
-      {points && (
-        <ul className="space-y-2 mt-3">
-          {points.map((point, i) => (
-            <li key={i} className="text-white/60 text-sm leading-relaxed flex gap-2">
-              <span className="text-[#a3e635]">•</span>
-              {point}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-}
 
-function ServiceCard({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) {
-  return (
-    <div className="bg-[#2b2b2c] border border-[#383838] p-6 rounded-2xl flex gap-5 items-start">
-      <div className="shrink-0 mt-1">{icon}</div>
-      <div>
-        <h4 className="text-lg font-bold text-white mb-2">{title}</h4>
-        <p className="text-sm text-white/60 leading-relaxed">{description}</p>
-      </div>
-    </div>
-  );
-}
 
-function SkillIcon({ src }: { src: string }) {
-  return (
-    <div className="w-20 h-20 bg-[#2b2b2c] border border-[#383838] rounded-2xl flex items-center justify-center p-4 hover:scale-105 transition-transform cursor-pointer">
-      <img src={src} alt="Skill" className="w-full h-full object-contain" referrerPolicy="no-referrer" />
-    </div>
-  );
-}
