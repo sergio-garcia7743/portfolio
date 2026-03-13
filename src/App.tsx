@@ -320,23 +320,29 @@ function ResumeSection() {
 
 function MyWorkSection({ onImageClick }: { onImageClick: (src: string) => void }) {
   const [filter, setFilter] = useState('All');
-  const filters = ['All', 'Engineering', 'Creative', 'Events'];
+  const filters = ['All', 'Engineering', 'Creative', 'Management'];
   
-  const photos = [
-    { category: 'Engineering', image: 'https://picsum.photos/seed/robot/600/800' },
-    { category: 'Engineering', image: 'https://picsum.photos/seed/factory/600/800' },
-    { category: 'Engineering', image: 'https://picsum.photos/seed/stem/600/800' },
-    { category: 'Engineering', image: 'https://picsum.photos/seed/car/600/800' },
-    { category: 'Engineering', image: 'https://picsum.photos/seed/p1/600/800' },
-    { category: 'Engineering', image: 'https://picsum.photos/seed/p2/600/800' },
-    { category: 'Engineering', image: 'https://picsum.photos/seed/p3/600/800' },
-    { category: 'Engineering', image: 'https://picsum.photos/seed/p4/600/800' },
-    { category: 'Engineering', image: 'https://picsum.photos/seed/p5/600/800' },
-    { category: 'Creative', image: 'https://picsum.photos/seed/c1/600/800' },
-    { category: 'Creative', image: 'https://picsum.photos/seed/c2/600/800' },
-    { category: 'Events', image: 'https://picsum.photos/seed/e1/600/800' },
-    { category: 'Events', image: 'https://picsum.photos/seed/e2/600/800' },
+  // List your filenames here. The code will automatically categorize them!
+  const imageFiles = [
+    '1.e.webp', '2.e.webp', '3.e.webp', '4.e.webp', '5.e.webp',
+    '6.e.webp', '7.e.webp', '8.e.webp', '9.e.webp', '10.e.webp',
+    '11.c.webp', '12.c.webp', '13.c.webp', '14.c.webp', '15.c.webp',
+    '16.m.webp', '17.m.webp', '18.m.webp', '19.m.webp', '20.m.webp'
   ];
+
+  const photos = imageFiles.map(filename => {
+    const parts = filename.split('.');
+    const code = parts[1]; // Get the 'e', 'c', or 'm'
+    
+    let category = 'Engineering';
+    if (code === 'c') category = 'Creative';
+    if (code === 'm') category = 'Management';
+    
+    return {
+      category,
+      image: `/images/${filename}`
+    };
+  });
 
   const filteredPhotos = filter === 'All' ? photos : photos.filter(p => p.category === filter);
 
@@ -381,6 +387,7 @@ function MyWorkSection({ onImageClick }: { onImageClick: (src: string) => void }
               alt="Work" 
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               referrerPolicy="no-referrer"
+              loading="lazy"
             />
             <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity" />
           </motion.div>
@@ -471,6 +478,7 @@ function ProjectsSection() {
                 alt={project.title} 
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 referrerPolicy="no-referrer"
+                loading="lazy"
               />
             </div>
             <div className="p-6 flex flex-col justify-center">
