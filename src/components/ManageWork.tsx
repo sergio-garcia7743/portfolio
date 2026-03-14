@@ -37,6 +37,7 @@ interface ManageWorkProps {
 }
 
 interface SortableItemProps {
+  key?: string;
   id: string;
   item: WorkItem;
   onUpdate: (updates: Partial<WorkItem>) => void;
@@ -194,7 +195,7 @@ export default function ManageWork({ onClose, currentManifest }: ManageWorkProps
 
   return (
     <div className="fixed inset-0 bg-black/98 z-[100] overflow-y-auto">
-      <div className="max-w-6xl mx-auto p-4 md:p-12">
+      <div className="max-w-7xl mx-auto p-4 md:p-12">
         
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12 sticky top-0 bg-black/98 py-6 z-20 border-b border-white/5">
@@ -235,7 +236,7 @@ export default function ManageWork({ onClose, currentManifest }: ManageWorkProps
             items={items.map(i => i.filename)}
             strategy={rectSortingStrategy}
           >
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 md:gap-6">
               {items.map((item, index) => (
                 <SortableItem 
                   key={item.filename}
