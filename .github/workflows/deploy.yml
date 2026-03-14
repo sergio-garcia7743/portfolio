@@ -24,28 +24,29 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm install
 
-      - name: Build
+      - name: Build Application
         run: npm run build
 
-      - name: Check dist exists
+      - name: Verify Build Output
         run: |
           if [ ! -d "dist" ]; then
-            echo "Error: dist directory not found after build!"
+            echo "::error::Build failed: 'dist' directory not found!"
             exit 1
           fi
+          ls -la dist
 
-      - name: Setup Pages
+      - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
