@@ -65,13 +65,13 @@ function SortableItem({ id, item, onUpdate, onRemove }: SortableItemProps) {
     <div 
       ref={setNodeRef} 
       style={style}
-      className="relative group bg-[#2b2b2c] border border-[#383838] rounded-xl overflow-hidden flex flex-col"
+      className="relative group bg-[#2b2b2c] overflow-hidden flex flex-col"
     >
       {/* Drag Handle Overlay */}
       <div 
         {...attributes} 
         {...listeners}
-        className="absolute top-2 left-2 z-10 p-1.5 bg-black/60 rounded-lg text-white/40 hover:text-white cursor-grab active:cursor-grabbing opacity-0 group-hover:opacity-100 transition-opacity"
+        className="absolute top-2 left-2 z-20 p-1.5 bg-black/60 rounded-lg text-white/40 hover:text-white cursor-grab active:cursor-grabbing opacity-0 group-hover:opacity-100 transition-opacity"
       >
         <GripVertical size={16} />
       </div>
@@ -82,48 +82,47 @@ function SortableItem({ id, item, onUpdate, onRemove }: SortableItemProps) {
           e.stopPropagation();
           onRemove();
         }}
-        className="absolute top-2 right-2 z-10 p-1.5 bg-red-500/80 hover:bg-red-500 rounded-lg text-white opacity-0 group-hover:opacity-100 transition-opacity"
+        className="absolute top-2 right-2 z-20 p-1.5 bg-red-500/80 hover:bg-red-500 rounded-lg text-white opacity-0 group-hover:opacity-100 transition-opacity"
       >
         <Trash2 size={16} />
       </button>
 
-      {/* Image Container */}
-      <div className="aspect-[3/4] overflow-hidden bg-black">
+      {/* Image Container - Matches Visitor Style */}
+      <div className="aspect-[3/4] overflow-hidden bg-[#2b2b2c] relative">
         <img 
           src={`./images/${item.filename}`} 
           alt={item.filename}
           className="w-full h-full object-cover"
           referrerPolicy="no-referrer"
         />
+        {/* Title Overlay - Matches Visitor Style */}
+        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
+          {item.title && (
+            <div className="w-full p-3 bg-gradient-to-t from-black/80 to-transparent">
+              <p className="text-[10px] text-white font-medium truncate uppercase tracking-wider">{item.title}</p>
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Details Area */}
-      <div className="p-3 space-y-2">
-        <div className="flex flex-col gap-1">
-          <label className="text-[9px] uppercase tracking-widest text-white/30 font-bold">Category</label>
-          <select 
-            value={item.category}
-            onChange={(e) => onUpdate({ category: e.target.value })}
-            className="w-full bg-black/40 border border-white/10 rounded-md px-2 py-1 text-xs text-white focus:outline-none focus:border-emerald-500/50 transition-all"
-          >
-            <option value="Engineering">Engineering</option>
-            <option value="Creative">Creative</option>
-            <option value="Management">Management</option>
-          </select>
-        </div>
-        <div className="flex flex-col gap-1">
-          <label className="text-[9px] uppercase tracking-widest text-white/30 font-bold">Title</label>
-          <input 
-            type="text"
-            value={item.title || ''}
-            onChange={(e) => onUpdate({ title: e.target.value })}
-            placeholder="No title..."
-            className="w-full bg-black/40 border border-white/10 rounded-md px-2 py-1 text-xs text-white focus:outline-none focus:border-emerald-500/50 transition-all"
-          />
-        </div>
-        <div className="text-[8px] font-mono text-white/20 truncate mt-1">
-          {item.filename}
-        </div>
+      {/* Details Area - Minimal for Manager */}
+      <div className="p-2 space-y-2 bg-[#1e1e1f] border-t border-[#383838]">
+        <select 
+          value={item.category}
+          onChange={(e) => onUpdate({ category: e.target.value })}
+          className="w-full bg-black/40 border border-white/5 rounded px-2 py-1 text-[10px] text-white/70 focus:outline-none focus:border-[#a3e635]/50 transition-all"
+        >
+          <option value="Engineering">Engineering</option>
+          <option value="Creative">Creative</option>
+          <option value="Management">Management</option>
+        </select>
+        <input 
+          type="text"
+          value={item.title || ''}
+          onChange={(e) => onUpdate({ title: e.target.value })}
+          placeholder="Title..."
+          className="w-full bg-black/40 border border-white/5 rounded px-2 py-1 text-[10px] text-white/70 focus:outline-none focus:border-[#a3e635]/50 transition-all"
+        />
       </div>
     </div>
   );
@@ -149,9 +148,12 @@ export default function ManageWork({ onClose, currentManifest }: ManageWorkProps
   );
 
   useEffect(() => {
-    // Merge current manifest with newly detected files
-    const manifestFilenames = new Set(currentManifest.map(i => i.filename));
-    const newFiles = allImageFiles.filter(f => !manifestFilenames.has(f));
+    // Filter out items from manifest that no longer exist on disk
+    const existingManifestItems = currentManifest.filter(item => allImageFiles.includes(item.filename));
+    const existingFilenames = new Set(existingManifestItems.map(i => i.filename));
+    
+    // Find files on disk that are NOT in the manifest
+    const newFiles = allImageFiles.filter(f => !existingFilenames.has(f));
     
     const newItems = newFiles.map(f => ({
       filename: f,
@@ -159,8 +161,8 @@ export default function ManageWork({ onClose, currentManifest }: ManageWorkProps
       title: f.split('.')[0] // Default title
     }));
 
-    setItems([...currentManifest, ...newItems]);
-  }, [currentManifest]);
+    setItems([...existingManifestItems, ...newItems]);
+  }, [currentManifest, allImageFiles.join(',')]); // Use joined string for stable dependency check
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -236,7 +238,7 @@ export default function ManageWork({ onClose, currentManifest }: ManageWorkProps
             items={items.map(i => i.filename)}
             strategy={rectSortingStrategy}
           >
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 md:gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-1 md:gap-2">
               {items.map((item, index) => (
                 <SortableItem 
                   key={item.filename}
