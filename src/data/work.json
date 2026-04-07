@@ -40,19 +40,9 @@
     "title": "9"
   },
   {
-    "filename": "16.c.webp",
-    "category": "Engineering",
-    "title": "16"
-  },
-  {
     "filename": "12.e.webp",
     "category": "Engineering",
     "title": "12"
-  },
-  {
-    "filename": "17.c.webp",
-    "category": "Engineering",
-    "title": "17"
   },
   {
     "filename": "11.e.webp",
@@ -61,7 +51,7 @@
   },
   {
     "filename": "18.c.webp",
-    "category": "Engineering",
+    "category": "Creative",
     "title": "18"
   },
   {
@@ -106,7 +96,7 @@
   },
   {
     "filename": "28.m.webp",
-    "category": "Engineering",
+    "category": "Creative",
     "title": "28"
   },
   {
@@ -116,28 +106,18 @@
   },
   {
     "filename": "29.m.webp",
-    "category": "Engineering",
+    "category": "Creative",
     "title": "29"
   },
   {
     "filename": "30.m.webp",
-    "category": "Engineering",
+    "category": "Creative",
     "title": "30"
-  },
-  {
-    "filename": "31.e.webp",
-    "category": "Engineering",
-    "title": "31"
   },
   {
     "filename": "32.e.webp",
     "category": "Engineering",
     "title": "32"
-  },
-  {
-    "filename": "33.c.webp",
-    "category": "Engineering",
-    "title": "33"
   },
   {
     "filename": "10.e.webp",
@@ -146,37 +126,42 @@
   },
   {
     "filename": "34.m.webp",
-    "category": "Engineering",
+    "category": "Management",
     "title": "34"
   },
   {
     "filename": "35.m.webp",
-    "category": "Engineering",
+    "category": "Management",
     "title": "35"
   },
   {
     "filename": "36.m.webp",
-    "category": "Engineering",
+    "category": "Management",
     "title": "36"
   },
   {
     "filename": "4.c.webp",
-    "category": "Engineering",
+    "category": "Creative",
     "title": "4"
   },
   {
     "filename": "5.c.webp",
-    "category": "Engineering",
+    "category": "Creative",
     "title": "5"
   },
   {
     "filename": "6.c.webp",
-    "category": "Engineering",
+    "category": "Creative",
     "title": "6"
   },
   {
     "filename": "7.e.webp",
     "category": "Engineering",
     "title": "7"
+  },
+  {
+    "filename": "29.e.webp",
+    "category": "Engineering",
+    "title": "29"
   }
 ]
