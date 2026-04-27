@@ -406,7 +406,7 @@ function MyWorkSection({ onImageClick }: { onImageClick: (src: string) => void }
         <p className="text-white/70 leading-relaxed">
           I am a University of Texas Rio Grande Valley Manufacturing Engineering student specializing in robotics, automated systems, and 
           process optimization. My experience includes developing a 5-DOF robotic pick-and-place system for research applications 
-          in collaboration with Los Alamos National Laboratory and Savannah River National Laboratory, along with supporting high-volume 
+          in collaboration with Los Alamos National Laboratory and Savannah River Nuclear Solutions, along with supporting high-volume 
           operations through planning, technical documentation, and workflow improvement. I have a strong foundation in CAD and simulation 
           tools such as Onshape, PTC Creo, and SolidWorks, as well as programming in C++ and Python for automation and control systems.
           Currently serving as a Research Assistant and an Hispanic Scholarship Fund Scholar,
