@@ -468,19 +468,19 @@ function ProjectsSection({ selectedPdf, setSelectedPdf }: { selectedPdf: string 
   const projects = [
     { 
       title: 'Part 1: 5-DOF Pick-and-Place System', 
-      image: './public/images/45.webp',
+      image: './images/45.webp',
       pdf: './pdfs/5-DOF-PART-1.pdf',
       description: 'Developed a 5-DOF automated pick-and-place system with a 1 kg rated payload for glovebox operations.'
     },
     { 
       title: 'Part 2: 5-DOF Pick-and-Place System (COMING SOON)', 
-      image: './public/images/45.webp',
+      image: '/images/45.webp',
       pdf: './pdfs/5-DOF-PART-1.pdf',
       description: 'Improved a 5-DOF automated pick-and-place system with a 1 kg rated payload for glovebox operations.'
     },
     { 
       title: 'House of Blanks Analysis', 
-      image: './public/images/45.webp',
+      image: './images/45.webp',
       pdf: './pdfs/house-of-blanks.pdf',
       description: 'Production analysis and bottleneck identification for high-volume apparel manufacturing.'
     }
