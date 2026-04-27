@@ -404,11 +404,13 @@ function MyWorkSection({ onImageClick }: { onImageClick: (src: string) => void }
         <h2 className="text-3xl font-bold text-white mb-4">My Work</h2>
         <div className="w-10 h-1.5 bg-[#a3e635] rounded-full mb-6"></div>
         <p className="text-white/70 leading-relaxed">
-          I am a Manufacturing Engineering student at the University of Texas Rio Grande Valley, specializing in robotics, 
-          automated systems, and production analysis. My experience ranges from developing 5-DOF automated pick-and-place 
-          systems for nuclear research facilities to leading large-scale event operations. With a strong foundation in CAD/Simulation (Creo, SolidWorks), 
-          manufacturing processes, and programming (C++, Python), I am passionate about optimizing industrial workflows and designing scalable robotic architectures. 
-          I am currently serving as a Research Assistant and an HSF Scholar, committed to driving innovation in engineering.
+          I am a University of Texas Rio Grande Valley Manufacturing Engineering student specializing in robotics, automated systems, and 
+          process optimization. My experience includes developing a 5-DOF robotic pick-and-place system for research applications 
+          in collaboration with Los Alamos National Laboratory and Savannah River National Laboratory, along with supporting high-volume 
+          operations through planning, technical documentation, and workflow improvement. I have a strong foundation in CAD and simulation 
+          tools such as Onshape, PTC Creo, and SolidWorks, as well as programming in C++ and Python for automation and control systems.
+          Currently serving as a Research Assistant and an Hispanic Scholarship Fund Scholar,
+          I am focused on applying engineering principles to create efficient, scalable, and innovative solutions.
         </p>
       </header>
 
@@ -465,14 +467,20 @@ function MyWorkSection({ onImageClick }: { onImageClick: (src: string) => void }
 function ProjectsSection({ selectedPdf, setSelectedPdf }: { selectedPdf: string | null, setSelectedPdf: (pdf: string | null) => void }) {
   const projects = [
     { 
-      title: '5-DOF Pick-and-Place System', 
-      image: 'https://picsum.photos/seed/robot/600/800',
-      pdf: './pdfs/5-dof-system.pdf',
-      description: 'Developed a 5-DOF automated pick-and-place system with a 1 kg rated payload for glovebox manufacturing operations.'
+      title: 'Part 1: 5-DOF Pick-and-Place System', 
+      image: './public/images/45.webp',
+      pdf: './pdfs/5-DOF-PART-1.pdf',
+      description: 'Developed a 5-DOF automated pick-and-place system with a 1 kg rated payload for glovebox operations.'
+    },
+    { 
+      title: 'Part 2: 5-DOF Pick-and-Place System (COMING SOON)', 
+      image: './public/images/45.webp',
+      pdf: './pdfs/5-DOF-PART-1.pdf',
+      description: 'Improved a 5-DOF automated pick-and-place system with a 1 kg rated payload for glovebox operations.'
     },
     { 
       title: 'House of Blanks Analysis', 
-      image: 'https://picsum.photos/seed/factory/600/800',
+      image: './public/images/45.webp',
       pdf: './pdfs/house-of-blanks.pdf',
       description: 'Production analysis and bottleneck identification for high-volume apparel manufacturing.'
     }
