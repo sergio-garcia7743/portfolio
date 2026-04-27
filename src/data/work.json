@@ -1,5 +1,35 @@
 [
   {
+    "filename": "45.webp",
+    "category": "Engineering",
+    "title": "45"
+  },
+  {
+    "filename": "46.webp",
+    "category": "Engineering",
+    "title": "46"
+  },
+  {
+    "filename": "37.webp",
+    "category": "Engineering",
+    "title": "37"
+  },
+  {
+    "filename": "38.webp",
+    "category": "Engineering",
+    "title": "38"
+  },
+  {
+    "filename": "39.webp",
+    "category": "Engineering",
+    "title": "39"
+  },
+  {
+    "filename": "36.webp",
+    "category": "Engineering",
+    "title": "36"
+  },
+  {
     "filename": "35.webp",
     "category": "Engineering",
     "title": "35"
@@ -20,9 +50,9 @@
     "title": "2"
   },
   {
-    "filename": "3.e.webp",
+    "filename": "44.webp",
     "category": "Engineering",
-    "title": "3"
+    "title": "44"
   },
   {
     "filename": "8.e.webp",
@@ -45,11 +75,6 @@
     "title": "15"
   },
   {
-    "filename": "9.e.webp",
-    "category": "Engineering",
-    "title": "9"
-  },
-  {
     "filename": "12.e.webp",
     "category": "Engineering",
     "title": "12"
@@ -70,16 +95,6 @@
     "title": "19"
   },
   {
-    "filename": "20.e.webp",
-    "category": "Engineering",
-    "title": "20"
-  },
-  {
-    "filename": "21.e.webp",
-    "category": "Engineering",
-    "title": "21"
-  },
-  {
     "filename": "22.e.webp",
     "category": "Engineering",
     "title": "22"
@@ -95,13 +110,8 @@
     "title": "24"
   },
   {
-    "filename": "25.m.webp",
-    "category": "Engineering",
-    "title": "25"
-  },
-  {
     "filename": "26.m.webp",
-    "category": "Engineering",
+    "category": "Management",
     "title": "26"
   },
   {
@@ -173,20 +183,5 @@
     "filename": "29.e.webp",
     "category": "Engineering",
     "title": "29"
-  },
-  {
-    "filename": "16.c.webp",
-    "category": "Engineering",
-    "title": "16"
-  },
-  {
-    "filename": "17.c.webp",
-    "category": "Engineering",
-    "title": "17"
-  },
-  {
-    "filename": "33.c.webp",
-    "category": "Engineering",
-    "title": "33"
   }
 ]
