@@ -474,13 +474,13 @@ function ProjectsSection({ selectedPdf, setSelectedPdf }: { selectedPdf: string 
     },
     { 
       title: 'Part 2: 5-DOF Pick-and-Place System (COMING SOON)', 
-      image: '/images/45.webp',
+      image: './images/60.webp',
       pdf: './pdfs/5-DOF-PART-1.pdf',
       description: 'Improved a 5-DOF automated pick-and-place system with a 1 kg rated payload for glovebox operations.'
     },
     { 
       title: 'House of Blanks Analysis', 
-      image: './images/45.webp',
+      image: './images/77.webp',
       pdf: './pdfs/house-of-blanks.pdf',
       description: 'Production analysis and bottleneck identification for high-volume apparel manufacturing.'
     }
