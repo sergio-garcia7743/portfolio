@@ -473,7 +473,7 @@ function ProjectsSection() {
       pdf: './pdfs/house-of-blanks.pdf',
       description: 'Production analysis and bottleneck identification for high-volume apparel manufacturing.'
     },
-    /*{ 
+    { 
       title: 'Mobile STEM Innovation Unit', 
       image: 'https://picsum.photos/seed/stem/600/800',
       pdf: './pdfs/stem-unit.pdf',
@@ -485,12 +485,11 @@ function ProjectsSection() {
       pdf: './pdfs/automotive.pdf',
       description: 'Servicing radiator, cooling, and electrical faults using OBD-II tools and mechanical expertise.'
     },
-    /*{ title: 'Project 1', image: 'https://picsum.photos/seed/p1/600/800', pdf: './pdfs/project1.pdf', description: 'Engineering design and analysis project focusing on manufacturing efficiency.' },
+    { title: 'Project 1', image: 'https://picsum.photos/seed/p1/600/800', pdf: './pdfs/project1.pdf', description: 'Engineering design and analysis project focusing on manufacturing efficiency.' },
     { title: 'Project 2', image: 'https://picsum.photos/seed/p2/600/800', pdf: './pdfs/project2.pdf', description: 'Robotic integration and control system development for industrial applications.' },
     { title: 'Project 3', image: 'https://picsum.photos/seed/p3/600/800', pdf: './pdfs/project3.pdf', description: 'CAD modeling and simulation of complex mechanical assemblies.' },
     { title: 'Project 4', image: 'https://picsum.photos/seed/p4/600/800', pdf: './pdfs/project4.pdf', description: 'Quality control and statistical process analysis for manufacturing lines.' },
     { title: 'Project 5', image: 'https://picsum.photos/seed/p5/600/800', pdf: './pdfs/project5.pdf', description: 'Sustainable manufacturing processes and material selection research.' },
-  */
   ];
 
   if (selectedPdf) {
