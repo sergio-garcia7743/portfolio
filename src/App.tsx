@@ -474,7 +474,7 @@ function ProjectsSection({ selectedPdf, setSelectedPdf }: { selectedPdf: string 
     },
     { 
       title: 'Part 2: 5-DOF Pick-and-Place System (COMING SOON)', 
-      image: './images/60.webp',
+      image: './images/60M.webp',
       pdf: './pdfs/5-DOF-PART-1.pdf',
       description: 'Improved a 5-DOF automated pick-and-place system with a 1 kg rated payload for glovebox operations.'
     },
