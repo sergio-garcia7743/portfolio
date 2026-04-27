@@ -472,24 +472,7 @@ function ProjectsSection() {
       image: 'https://picsum.photos/seed/factory/600/800',
       pdf: './pdfs/house-of-blanks.pdf',
       description: 'Production analysis and bottleneck identification for high-volume apparel manufacturing.'
-    },
-    { 
-      title: 'Mobile STEM Innovation Unit', 
-      image: 'https://picsum.photos/seed/stem/600/800',
-      pdf: './pdfs/stem-unit.pdf',
-      description: 'Mobile outreach trailer concept for interactive engineering activities and STEM education.'
-    },
-    { 
-      title: 'Automotive Systems Mechanics', 
-      image: 'https://picsum.photos/seed/car/600/800',
-      pdf: './pdfs/automotive.pdf',
-      description: 'Servicing radiator, cooling, and electrical faults using OBD-II tools and mechanical expertise.'
-    },
-    { title: 'Project 1', image: 'https://picsum.photos/seed/p1/600/800', pdf: './pdfs/project1.pdf', description: 'Engineering design and analysis project focusing on manufacturing efficiency.' },
-    { title: 'Project 2', image: 'https://picsum.photos/seed/p2/600/800', pdf: './pdfs/project2.pdf', description: 'Robotic integration and control system development for industrial applications.' },
-    { title: 'Project 3', image: 'https://picsum.photos/seed/p3/600/800', pdf: './pdfs/project3.pdf', description: 'CAD modeling and simulation of complex mechanical assemblies.' },
-    { title: 'Project 4', image: 'https://picsum.photos/seed/p4/600/800', pdf: './pdfs/project4.pdf', description: 'Quality control and statistical process analysis for manufacturing lines.' },
-    { title: 'Project 5', image: 'https://picsum.photos/seed/p5/600/800', pdf: './pdfs/project5.pdf', description: 'Sustainable manufacturing processes and material selection research.' },
+    }
   ];
 
   if (selectedPdf) {
@@ -503,7 +486,7 @@ function ProjectsSection() {
             ← Back to Projects
           </button>
         </header>
-        <div className="flex-1 bg-white rounded-2xl overflow-hidden min-h-[600px]">
+        <div className="flex-1 bg-black/40 border border-[#383838] rounded-2xl overflow-hidden min-h-[750px] w-full">
           <iframe 
             src={selectedPdf} 
             className="w-full h-full border-none"
