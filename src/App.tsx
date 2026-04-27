@@ -28,6 +28,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('My Work');
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [showManager, setShowManager] = useState(false);
+  const [selectedProjectPdf, setSelectedProjectPdf] = useState<string | null>(null);
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 md:p-8 lg:p-12">
@@ -98,33 +99,37 @@ export default function App() {
         <main className="flex-1 bg-[#1e1e1f] border border-[#383838] rounded-3xl relative overflow-hidden min-h-[800px] w-full">
           
           {/* Navigation */}
-          <nav className="absolute top-0 right-0 bg-[#2b2b2c] border-b border-l border-[#383838] rounded-bl-3xl px-8 py-4 z-10 hidden md:block">
-            <ul className="flex gap-8">
-              {TABS.map(tab => (
-                <li key={tab}>
+          {!selectedProjectPdf && (
+            <nav className="absolute top-0 right-0 bg-[#2b2b2c] border-b border-l border-[#383838] rounded-bl-3xl px-8 py-4 z-10 hidden md:block">
+              <ul className="flex gap-8">
+                {TABS.map(tab => (
+                  <li key={tab}>
+                    <button 
+                      onClick={() => setActiveTab(tab)}
+                      className={`text-sm font-medium transition-colors ${activeTab === tab ? 'text-[#a3e635]' : 'text-white/60 hover:text-white/80'}`}
+                    >
+                      {tab}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
+
+          {/* Mobile Navigation */}
+          {!selectedProjectPdf && (
+            <div className="md:hidden bg-[#2b2b2c] border-b border-[#383838] p-4 flex justify-around overflow-x-auto">
+               {TABS.map(tab => (
                   <button 
+                    key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`text-sm font-medium transition-colors ${activeTab === tab ? 'text-[#a3e635]' : 'text-white/60 hover:text-white/80'}`}
+                    className={`text-xs font-medium px-3 py-1 rounded-full transition-colors ${activeTab === tab ? 'bg-[#383838] text-[#a3e635]' : 'text-white/60'}`}
                   >
                     {tab}
                   </button>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          {/* Mobile Navigation */}
-          <div className="md:hidden bg-[#2b2b2c] border-b border-[#383838] p-4 flex justify-around overflow-x-auto">
-             {TABS.map(tab => (
-                <button 
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`text-xs font-medium px-3 py-1 rounded-full transition-colors ${activeTab === tab ? 'bg-[#383838] text-[#a3e635]' : 'text-white/60'}`}
-                >
-                  {tab}
-                </button>
-              ))}
-          </div>
+                ))}
+            </div>
+          )}
 
           <div className="p-8 md:p-12">
             <AnimatePresence mode="wait">
@@ -136,7 +141,7 @@ export default function App() {
                 transition={{ duration: 0.2 }}
               >
                 {activeTab === 'Resume' && <ResumeSection />}
-                {activeTab === 'Projects' && <ProjectsSection />}
+                {activeTab === 'Projects' && <ProjectsSection selectedPdf={selectedProjectPdf} setSelectedPdf={setSelectedProjectPdf} />}
                 {activeTab === 'My Work' && <MyWorkSection onImageClick={setSelectedImage} />}
               </motion.div>
             </AnimatePresence>
@@ -457,9 +462,7 @@ function MyWorkSection({ onImageClick }: { onImageClick: (src: string) => void }
   );
 }
 
-function ProjectsSection() {
-  const [selectedPdf, setSelectedPdf] = useState<string | null>(null);
-
+function ProjectsSection({ selectedPdf, setSelectedPdf }: { selectedPdf: string | null, setSelectedPdf: (pdf: string | null) => void }) {
   const projects = [
     { 
       title: '5-DOF Pick-and-Place System', 
@@ -477,16 +480,24 @@ function ProjectsSection() {
 
   if (selectedPdf) {
     return (
-      <section className="h-full flex flex-col">
-        <header className="mb-6 flex items-center justify-between">
+      <section className="h-screen md:h-[800px] flex flex-col -m-8 md:-m-12 relative z-50 bg-[#1e1e1f]">
+        <header className="p-4 md:p-6 border-b border-[#383838] flex items-center justify-between bg-[#2b2b2c]">
           <button 
             onClick={() => setSelectedPdf(null)}
             className="text-[#a3e635] text-sm font-medium flex items-center gap-2 hover:underline"
           >
             ← Back to Projects
           </button>
+          <a 
+            href={selectedPdf} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-white/60 text-xs hover:text-[#a3e635] flex items-center gap-2 transition-colors"
+          >
+            Open in New Tab ↗
+          </a>
         </header>
-        <div className="flex-1 bg-black/40 border border-[#383838] rounded-2xl overflow-hidden min-h-[750px] w-full">
+        <div className="flex-1 w-full bg-white">
           <iframe 
             src={selectedPdf} 
             className="w-full h-full border-none"
