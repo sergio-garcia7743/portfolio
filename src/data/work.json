@@ -20,6 +20,11 @@
     "title": "IMG_5743"
   },
   {
+    "filename": "60M.webp",
+    "category": "Engineering",
+    "title": "60M"
+  },
+  {
     "filename": "34.webp",
     "category": "Engineering",
     "title": "34"
@@ -135,6 +140,11 @@
     "title": "IMG_5410"
   },
   {
+    "filename": "77.webp",
+    "category": "Engineering",
+    "title": "77"
+  },
+  {
     "filename": "12.e.webp",
     "category": "Engineering",
     "title": "12"
@@ -220,6 +230,16 @@
     "title": "25"
   },
   {
+    "filename": "80.webp",
+    "category": "Creative",
+    "title": "80"
+  },
+  {
+    "filename": "82.webp",
+    "category": "Creative",
+    "title": "82"
+  },
+  {
     "filename": "28.m.webp",
     "category": "Creative",
     "title": "28"
@@ -235,9 +255,24 @@
     "title": "30"
   },
   {
+    "filename": "84.webp",
+    "category": "Creative",
+    "title": "84"
+  },
+  {
     "filename": "5.c.webp",
     "category": "Creative",
     "title": "5"
+  },
+  {
+    "filename": "83.webp",
+    "category": "Creative",
+    "title": "83"
+  },
+  {
+    "filename": "85.webp",
+    "category": "Creative",
+    "title": "85"
   },
   {
     "filename": "18.c.webp",
@@ -253,5 +288,10 @@
     "filename": "4.c.webp",
     "category": "Creative",
     "title": "4"
+  },
+  {
+    "filename": "86.webp",
+    "category": "Creative",
+    "title": "86"
   }
 ]
